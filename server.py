@@ -1,15 +1,34 @@
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit
 import chess
 import chess_logic
 import os
+
+connected_users = {}
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
 
 game_board = chess.Board()
+
+################################################################################
+@socketio.on('join')
+def handle_join(data):
+    name = data.get('name', 'Anonymous')
+    connected_users[request.sid] = name
+    emit('users', list(connected_users.values()), broadcast=True)
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    connected_users.pop(request.sid, None)
+    emit('users', list(connected_users.values()), broadcast=True)
+
+@socketio.on('chat')
+def handle_chat(data):
+    emit('chat', {'name': data['name'], 'message': data['message']}, broadcast=True)
+################################################################################
 
 @app.route('/')
 def index():

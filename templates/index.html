@@ -6,6 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
 </head>
+
+
+<!-- Connected Users -->
+<div style="text-align: center;">
+  <h3>Connected Players</h3>
+  <ul id="user-list"></ul>
+</div>
+
+<!-- Chat Box -->
+<div style="text-align: center; margin-top: 20px;">
+  <div id="chat-log" style="height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 5px; width: 80%; margin: auto;"></div>
+  <input id="chat-input" type="text" placeholder="Type a message..." style="width: 70%;">
+  <button id="send-chat">Send</button>
+</div>
+
+
 <body>
   <h1>Multiplayer Chess</h1>
 

@@ -42,6 +42,38 @@ socket.on('reset', () => {
   document.getElementById('status').innerText = '';
 });
 
+//////////////////////////// Added code///////////////////////////////
+let playerName = prompt("Enter your name") || "Anonymous";
+socket.emit("join", { name: playerName });
+
+socket.on("users", (users) => {
+  const userList = document.getElementById("user-list");
+  userList.innerHTML = "";
+  users.forEach((name) => {
+    const li = document.createElement("li");
+    li.innerText = name;
+    userList.appendChild(li);
+  });
+});
+
+document.getElementById("send-chat").onclick = () => {
+  const input = document.getElementById("chat-input");
+  const message = input.value.trim();
+  if (message !== "") {
+    socket.emit("chat", { name: playerName, message });
+    input.value = "";
+  }
+};
+
+socket.on("chat", (data) => {
+  const log = document.getElementById("chat-log");
+  const entry = document.createElement("div");
+  entry.innerHTML = `<strong>${data.name}:</strong> ${data.message}`;
+  log.appendChild(entry);
+  log.scrollTop = log.scrollHeight;
+});
+/////////////////////////////////////////////////////////////////////////
+
 socket.on('move', data => {
   const moveUCI = data.move;
 

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multiplayer Chess</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
+</head>
+<body>
+  <h1>Multiplayer Chess</h1>
+
+  <!-- Captured pieces display -->
+  <div style="display: flex; justify-content: center; gap: 30px;">
+    <div>
+      <h3>White Captures</h3>
+      <div id="white-captures" style="min-height: 40px;"></div>
+    </div>
+    <div>
+      <h3>Black Captures</h3>
+      <div id="black-captures" style="min-height: 40px;"></div>
+    </div>
+  </div>
+  <div id="board" style="width: 500px; margin: 20px auto;"></div>
+  <p id="status" style="text-align: center;"></p>
+
+   <!-- ✅ Load jQuery first -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- JS dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+  <!--<script src="https://cdn.jsdelivr.net/npm/chess.js@0.13.4/chess.min.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/chess.js@0.12.0/chess.min.js"></script>
+  <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+  <script src="/static/script.js"></script>
+</body>
+</html>

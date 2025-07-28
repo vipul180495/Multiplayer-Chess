@@ -65,71 +65,94 @@
   <title>Multiplayer Chess</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-  .main-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 40px;
-    padding: 20px;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: auto;
-  }
-
-  .left-column {
-    width: 500px;
-  }
-
-  .right-column {
-    width: 350px;
-  }
-
-  @media (max-width: 768px) {
-    .main-container {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .left-column,
-    .right-column {
-      width: 100%;
-      max-width: 90vw;
-    }
-
-    #board {
-      width: 100% !important;
-      margin: 0 auto;
-    }
-  }
-</style>
   <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
+
+  <style>
+    body.dark-mode {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    body.dark-mode #chat-log {
+      background-color: #1e1e1e;
+      border-color: #444;
+      color: #f0f0f0;
+    }
+
+    body.dark-mode input,
+    body.dark-mode button {
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #555;
+    }
+
+    body.dark-mode h1,
+    body.dark-mode h3,
+    body.dark-mode h4 {
+      color: #ffffff;
+    }
+
+    .main-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 20px;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .left-column {
+      width: 500px;
+    }
+
+    .right-column {
+      width: 350px;
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .left-column,
+      .right-column {
+        width: 100%;
+        max-width: 90vw;
+      }
+
+      #board {
+        width: 100% !important;
+        margin: 0 auto;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <h1 style="text-align: center;">♟️ Multiplayer Chess</h1>
+  <h1 style="text-align: center; position: relative;">
+    ♟️ Multiplayer Chess
+    <button id="dark-toggle" style="position: absolute; right: 20px; top: 10px;">🌙 Dark Mode</button>
+  </h1>
 
-  <!-- Layout Container 
-  <div style="display: flex; justify-content: center; gap: 40px; padding: 20px; flex-wrap: wrap;">-->
   <div class="main-container">
-    <!-- Left Column: Chessboard 
-    <div> -->
+
+    <!-- Left: Chessboard -->
     <div class="left-column">
       <div id="board" style="width: 500px;"></div>
       <p id="status" style="text-align: center; margin-top: 10px;"></p>
-      <p id="turn-status" style="text-align:center; font-weight: bold;"></p>
-
-      <!-- Undo Button -->
+      <p id="turn-status" style="text-align: center; font-weight: bold;"></p>
       <div style="text-align: center; margin-top: 10px;">
         <button id="undo-btn">⏪ Undo</button>
       </div>
     </div>
 
-    <!-- Right Column: Info 
-    <div style="width: 350px;"> -->
-      <!-- Connected Users -->
+    <!-- Right: Sidebar -->
     <div class="right-column">
+      <!-- Connected Players -->
       <div style="text-align: center;">
         <h3>Connected Players</h3>
         <ul id="user-list" style="list-style: none; padding: 0;"></ul>
@@ -150,7 +173,7 @@
         </div>
       </div>
 
-      <!-- Chat Box -->
+      <!-- Chat -->
       <div style="text-align: center; margin-top: 20px;">
         <h3>Chat</h3>
         <div id="chat-log" style="height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 5px;"></div>
@@ -158,16 +181,27 @@
         <button id="send-chat">Send</button>
       </div>
     </div>
+
   </div>
 
-  <!-- JS Dependencies -->
+  <!-- JS dependencies -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chess.js@0.12.0/chess.min.js"></script>
   <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
   <script src="/static/script.js"></script>
 
+  <!-- Dark Mode Toggle Script -->
+  <script>
+    const toggleBtn = document.getElementById("dark-toggle");
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      toggleBtn.textContent = document.body.classList.contains("dark-mode") ? "☀️ Light Mode" : "🌙 Dark Mode";
+    });
+  </script>
+
 </body>
 </html>
+
 
 

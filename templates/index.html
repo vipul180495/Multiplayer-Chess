@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <title>Multiplayer Chess</title>
@@ -6,26 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
 </head>
+-->
 
-
-<!-- Connected Users -->
+<!-- Connected Users 
 <div style="text-align: center;">
   <h3>Connected Players</h3>
   <ul id="user-list"></ul>
-</div>
+</div> -->
 
-<!-- Chat Box -->
+<!-- Chat Box 
 <div style="text-align: center; margin-top: 20px;">
   <div id="chat-log" style="height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 5px; width: 80%; margin: auto;"></div>
   <input id="chat-input" type="text" placeholder="Type a message..." style="width: 70%;">
   <button id="send-chat">Send</button>
-</div>
+</div> -->
 
-
+<!--
 <body>
   <h1>Multiplayer Chess</h1>
-
-  <!-- Captured pieces display -->
+-->
+  <!-- Captured pieces display 
   <div style="display: flex; justify-content: center; gap: 30px;">
     <div>
       <h3>White Captures</h3>
@@ -42,17 +42,91 @@
   <div id="board" style="width: 500px; margin: 20px auto;"></div>
   <p id="status" style="text-align: center;"></p>
   <p id="turn-status" style="text-align:center; font-weight: bold;"></p>
+-->
 
+   <!-- ✅ Load jQuery first 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  -->
 
-   <!-- ✅ Load jQuery first -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- JS dependencies -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+  <!-- JS dependencies 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script> -->
+  
   <!--<script src="https://cdn.jsdelivr.net/npm/chess.js@0.13.4/chess.min.js"></script> -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script> -->
-  <script src="https://cdn.jsdelivr.net/npm/chess.js@0.12.0/chess.min.js"></script>
+  
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chess.js@0.12.0/chess.min.js"></script>
   <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
   <script src="/static/script.js"></script>
 </body>
 </html>
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multiplayer Chess</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
+</head>
+<body>
+
+  <h1 style="text-align: center;">♟️ Multiplayer Chess</h1>
+
+  <!-- Layout Container -->
+  <div style="display: flex; justify-content: center; gap: 40px; padding: 20px; flex-wrap: wrap;">
+
+    <!-- Left Column: Chessboard -->
+    <div>
+      <div id="board" style="width: 500px;"></div>
+      <p id="status" style="text-align: center; margin-top: 10px;"></p>
+      <p id="turn-status" style="text-align:center; font-weight: bold;"></p>
+
+      <!-- Undo Button -->
+      <div style="text-align: center; margin-top: 10px;">
+        <button id="undo-btn">⏪ Undo</button>
+      </div>
+    </div>
+
+    <!-- Right Column: Info -->
+    <div style="width: 350px;">
+      <!-- Connected Users -->
+      <div style="text-align: center;">
+        <h3>Connected Players</h3>
+        <ul id="user-list" style="list-style: none; padding: 0;"></ul>
+      </div>
+
+      <!-- Captured Pieces -->
+      <div style="margin-top: 20px;">
+        <h3 style="text-align: center;">Captured Pieces</h3>
+        <div style="display: flex; justify-content: space-between;">
+          <div>
+            <h4>White Captures</h4>
+            <div id="white-captures" style="min-height: 40px;"></div>
+          </div>
+          <div>
+            <h4>Black Captures</h4>
+            <div id="black-captures" style="min-height: 40px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Box -->
+      <div style="text-align: center; margin-top: 20px;">
+        <h3>Chat</h3>
+        <div id="chat-log" style="height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 5px;"></div>
+        <input id="chat-input" type="text" placeholder="Type a message..." style="width: 70%;">
+        <button id="send-chat">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Dependencies -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chess.js@0.12.0/chess.min.js"></script>
+  <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+  <script src="/static/script.js"></script>
+
+</body>
+</html>
+
+

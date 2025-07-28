@@ -49,10 +49,10 @@ socket.emit("join", { name: playerName });
 socket.on("users", (users) => {
   const userList = document.getElementById("user-list");
   userList.innerHTML = "";
-  users.forEach((name) => {
+  users.forEach((user) => {
     const li = document.createElement("li");
     //li.innerText = name;
-    li.innerText = `${name} (${color})`;
+    li.innerText = typeof user === 'string' ? user :`${user.name} (${user.color})`;
     userList.appendChild(li);
   });
 });

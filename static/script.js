@@ -51,7 +51,8 @@ socket.on("users", (users) => {
   userList.innerHTML = "";
   users.forEach((name) => {
     const li = document.createElement("li");
-    li.innerText = name;
+    //li.innerText = name;
+    li.innerText = `${name} (${color})`;
     userList.appendChild(li);
   });
 });
@@ -72,6 +73,30 @@ socket.on("chat", (data) => {
   log.appendChild(entry);
   log.scrollTop = log.scrollHeight;
 });
+
+socket.on('turn', data => {
+  const turn = data.turn;
+  document.getElementById('turn-status').innerText = `♟️ ${turn.charAt(0).toUpperCase() + turn.slice(1)}'s turn`;
+});
+
+document.getElementById('undo-btn').onclick = () => {
+  socket.emit('undo');
+};
+
+socket.on('undo', data => {
+  game.load(data.fen);
+  board.position(data.fen);
+  
+  // Optionally clear captured pieces and redraw based on fen
+  document.getElementById('white-captures').innerHTML = '';
+  document.getElementById('black-captures').innerHTML = '';
+  // You might want to reprocess moves to show captured pieces, or skip this for now.
+});
+
+socket.on('undo_denied', () => {
+  alert('❌ Undo denied: Only the opponent of the current turn can undo.');
+});
+
 /////////////////////////////////////////////////////////////////////////
 
 socket.on('move', data => {

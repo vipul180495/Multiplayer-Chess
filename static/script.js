@@ -80,16 +80,20 @@ socket.on('turn', data => {
 });
 
 document.getElementById('undo-btn').onclick = () => {
-  socket.emit('undo');
-};
-
+  const confirmUndo = confirm("Are you sure you want to undo the last move?");
+  if (confirmUndo) {
+    socket.emit('undo');
+  }
+};  
+  
 socket.on('undo', data => {
   game.load(data.fen);
   board.position(data.fen);
   
   // Optionally clear captured pieces and redraw based on fen
-  document.getElementById('white-captures').innerHTML = '';
-  document.getElementById('black-captures').innerHTML = '';
+  //document.getElementById('white-captures').innerHTML = '';
+  //document.getElementById('black-captures').innerHTML = '';
+  document.getElementById('status').innerText = "⏪ Last move undone";
   // You might want to reprocess moves to show captured pieces, or skip this for now.
 });
 

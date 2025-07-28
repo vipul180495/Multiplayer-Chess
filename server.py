@@ -26,7 +26,7 @@ def handle_join(data):
     name = data.get('name', 'Anonymous')
     connected_users[request.sid] = name
     
-    # Assign colors if not assigned
+    '''# Assign colors if not assigned
     if len(player_colors) < 2:
         if 'white' not in player_colors.values():
             player_colors[request.sid] = 'white'
@@ -34,7 +34,17 @@ def handle_join(data):
             player_colors[request.sid] = 'black'
     else:
         player_colors[request.sid] = 'spectator'  # For extra users
-    
+            '''
+     # Assign player color
+    assigned_color = 'spectator'
+    existing_colors = set(player_colors.values())
+
+    if 'white' not in existing_colors:
+        assigned_color = 'white'
+    elif 'black' not in existing_colors:
+        assigned_color = 'black'
+
+    player_colors[request.sid] = assigned_color
     # Emit user list with colors
     users_info = [{'name': connected_users[sid], 'color': player_colors.get(sid, 'spectator')} for sid in connected_users]
     emit('users', users_info, broadcast=True)
@@ -58,6 +68,25 @@ def handle_disconnect():
 @socketio.on('chat')
 def handle_chat(data):
     emit('chat', {'name': data['name'], 'message': data['message']}, broadcast=True)
+    
+@socketio.on('undo')
+def handle_undo():
+    player_color = player_colors.get(request.sid)
+    
+    # Only allow undo if opponent's turn (i.e., this player made last move)
+    if player_color == 'white' and not game_board.turn:
+        pass
+    elif player_color == 'black' and game_board.turn:
+        pass
+    else:
+        emit('undo_denied')
+        return
+
+    if len(game_board.move_stack) >= 1:
+        game_board.pop()
+        emit('undo', {'fen': game_board.fen()}, broadcast=True)
+        emit('turn', {'turn': 'white' if game_board.turn else 'black'}, broadcast=True)
+    
 ################################################################################
 
 @app.route('/')

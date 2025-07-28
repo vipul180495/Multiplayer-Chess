@@ -68,21 +68,22 @@
   <style>
   .main-container {
     display: flex;
+    flex-direction: row;
     justify-content: center;
+    align-items: flex-start;
     gap: 40px;
     padding: 20px;
     flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
   }
 
   .left-column {
-    min-width: 300px;
-    flex: 1;
+    width: 500px;
   }
 
   .right-column {
-    min-width: 300px;
-    flex: 1;
-    max-width: 400px;
+    width: 350px;
   }
 
   @media (max-width: 768px) {
@@ -94,16 +95,15 @@
     .left-column,
     .right-column {
       width: 100%;
-      max-width: none;
+      max-width: 90vw;
     }
 
     #board {
-      width: 90vw !important;
+      width: 100% !important;
       margin: 0 auto;
     }
   }
 </style>
-
   <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
 </head>
 <body>
@@ -126,9 +126,10 @@
       </div>
     </div>
 
-    <!-- Right Column: Info -->
-    <div style="width: 350px;">
+    <!-- Right Column: Info 
+    <div style="width: 350px;"> -->
       <!-- Connected Users -->
+    <div class="right-column">
       <div style="text-align: center;">
         <h3>Connected Players</h3>
         <ul id="user-list" style="list-style: none; padding: 0;"></ul>
